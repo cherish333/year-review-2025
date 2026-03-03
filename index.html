@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 年终复盘 | 崔志鹏</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --c-primary: #6366f1;
+            --c-accent: #f43f5e;
+            --c-gold: #f59e0b;
+            --c-emerald: #10b981;
+            --c-sky: #0ea5e9;
+        }
+        * { scroll-behavior: smooth; margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 20% 50%, #1e1b4b 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, #312e81 0%, transparent 40%),
+                        radial-gradient(ellipse at 50% 100%, #0c0a1d 0%, transparent 60%),
+                        #0f0d1a;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(1.5px 1.5px at 10% 20%, rgba(255,255,255,0.15) 50%, transparent 50%),
+                              radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.1) 50%, transparent 50%),
+                              radial-gradient(1.5px 1.5px at 70% 30%, rgba(255,255,255,0.12) 50%, transparent 50%),
+                              radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.08) 50%, transparent 50%),
+                              radial-gradient(2px 2px at 30% 90%, rgba(255,255,255,0.06) 50%, transparent 50%);
+            animation: twinkle 8s ease-in-out infinite alternate;
+        }
+        @keyframes twinkle { 0%{opacity:.6} 100%{opacity:1} }
+
+        /* Grid overlay */
+        .hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8, #f472b6, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== Stat cards ===== */
+        .stat-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .stat-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(199,210,254,0.7);
+            margin-top: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== Nav ===== */
+        .nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(255,255,255,0.85);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+        .nav a { transition: color 0.2s; }
+        .nav a:hover { color: var(--c-primary); }
+
+        /* ===== Timeline ===== */
+        .tl-line {
+            position: absolute;
+            left: 28px;
+            top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #818cf8, #c084fc, #f472b6, #fbbf24);
+            border-radius: 3px;
+        }
+        @media(min-width:768px) {
+            .tl-line { left: 50%; transform: translateX(-1.5px); }
+        }
+        .tl-dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px currentColor, 0 2px 8px rgba(0,0,0,0.15);
+            position: absolute;
+            left: 22px; top: 6px;
+            z-index: 2;
+        }
+        @media(min-width:768px) {
+            .tl-dot { left: 50%; transform: translateX(-7px); }
+        }
+        .tl-dot::after {
+            content: '';
+            position: absolute; inset: -6px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.15;
+            animation: pulse-ring 2.5s ease-out infinite;
+        }
+        @keyframes pulse-ring { 0%{transform:scale(0.8);opacity:0.3} 100%{transform:scale(2);opacity:0} }
+
+        /* ===== Cards ===== */
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04), 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        /* ===== System grid ===== */
+        .sys-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.35s cubic-bezier(.4,0,.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .sys-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--bar-color, #6366f1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .sys-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            border-color: transparent;
+        }
+        .sys-card:hover::before { opacity: 1; }
+
+        .sys-icon {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        .sys-card:hover .sys-icon { transform: scale(1.1) rotate(-5deg); }
+
+        /* ===== Section animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* ===== Misc ===== */
+        .glass {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 100px;
+            letter-spacing: 0.03em;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Nav -->
+    <nav class="nav">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="flex justify-between items-center h-14">
+                <span class="text-sm font-bold gradient-text tracking-wide">2025 REVIEW</span>
+                <div class="hidden md:flex items-center gap-8 text-[13px] font-medium text-gray-500">
+                    <a href="#hero">首页</a>
+                    <a href="#achievements">核心成果</a>
+                    <a href="#systems">系统搭建</a>
+                    <a href="#reflection">反思</a>
+                    <a href="#feelings">感受</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section id="hero" class="hero flex items-center">
+        <div class="max-w-5xl mx-auto px-5 sm:px-8 py-32 relative z-10 w-full">
+            <div class="text-center">
+                <p class="text-indigo-300/60 text-xs tracking-[0.3em] uppercase mb-6 font-medium">Annual Review 2025</p>
+
+                <h1 class="text-5xl sm:text-6xl md:text-[5rem] font-black leading-[1.1] mb-6 tracking-tight">
+                    <span class="gradient-text">与 AI 共进的一年</span>
+                </h1>
+
+                <p class="text-[15px] text-indigo-200/70 max-w-2xl mx-auto leading-relaxed mb-3">
+                    从UE视频到AI视频，再到用AI写代码做工具——完整经历了AI从"只会画抽象派表情包"到影视级输出，从写出来各种bug到一句话做一个APP的全过程
+                </p>
+                <p class="text-indigo-400/50 text-xs mb-16 tracking-wide">崔志鹏 · 素材制作组 · 2025年度个人复盘</p>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                    <div class="stat-card">
+                        <div class="stat-number text-amber-400">$276万</div>
+                        <div class="stat-label">爆款素材总消耗</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number text-emerald-400">55+</div>
+                        <div class="stat-label">视频素材产出</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number text-pink-400">15</div>
+                        <div class="stat-label">搭建的系统/工具</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number text-sky-400">数万行</div>
+                        <div class="stat-label">AI生成代码量</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-20">
+                <a href="#story" class="inline-flex items-center gap-2 text-indigo-300/50 text-xs tracking-wider hover:text-indigo-300 transition group">
+                    <span>向下滚动</span>
+                    <i class="ri-arrow-down-line text-lg group-hover:translate-y-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TIMELINE ============ -->
+    <section id="story" class="py-28 bg-white">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs tracking-[0.2em] text-indigo-400 uppercase font-semibold mb-3">Timeline</p>
+                <h2 class="text-3xl sm:text-4xl font-bold">我的 2025</h2>
+                <p class="text-gray-400 mt-3 text-sm">四个季度，一条完整的转型线</p>
+            </div>
+
+            <div class="relative">
+                <div class="tl-line"></div>
+
+                <!-- Q1 -->
+                <div class="relative flex flex-col md:flex-row items-start mb-20 reveal">
+                    <div class="md:w-1/2 md:pr-14 md:text-right pl-16 md:pl-0">
+                        <span class="badge bg-indigo-100 text-indigo-600 mb-3">Q1 · 基建与探索</span>
+                        <h3 class="text-xl font-bold mb-2 mt-1">UE视频制作 × 工具开发</h3>
+                        <p class="text-gray-500 text-[15px] leading-relaxed">产出多条3D素材，开发SVN工程管理、UE工具箱、AE批量脚本。</p>
+                    </div>
+                    <div class="tl-dot text-indigo-500"></div>
+                    <div class="md:w-1/2 md:pl-14"></div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="relative flex flex-col md:flex-row items-start mb-20 reveal">
+                    <div class="md:w-1/2 md:pr-14 pl-16 md:pl-0"></div>
+                    <div class="tl-dot text-purple-500"></div>
+                    <div class="md:w-1/2 md:pl-14 pl-16">
+                        <span class="badge bg-purple-100 text-purple-600 mb-3">Q2 · AI转型</span>
+                        <h3 class="text-xl font-bold mb-2 mt-1">AI视频制作 × LQZ首测出数据</h3>
+                        <p class="text-gray-500 text-[15px] leading-relaxed">转型AI视频方向，LQZ项目首测中我做的AI视频跑出了数据。</p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="relative flex flex-col md:flex-row items-start mb-20 reveal">
+                    <div class="md:w-1/2 md:pr-14 md:text-right pl-16 md:pl-0">
+                        <span class="badge bg-pink-100 text-pink-600 mb-3">Q3 · 深度突破</span>
+                        <h3 class="text-xl font-bold mb-2 mt-1">批量工具 × 创意系统</h3>
+                        <p class="text-gray-500 text-[15px] leading-relaxed">搭建竞品视频批量下载工具、创意搜集系统。</p>
+                    </div>
+                    <div class="tl-dot text-pink-500"></div>
+                    <div class="md:w-1/2 md:pl-14"></div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="relative flex flex-col md:flex-row items-start reveal">
+                    <div class="md:w-1/2 md:pr-14 pl-16 md:pl-0"></div>
+                    <div class="tl-dot text-amber-500"></div>
+                    <div class="md:w-1/2 md:pl-14 pl-16">
+                        <span class="badge bg-amber-100 text-amber-600 mb-3">Q4 · 新路线</span>
+                        <h3 class="text-xl font-bold mb-2 mt-1">CGDC演讲 × 自研引擎 × 视频转试玩</h3>
+                        <p class="text-gray-500 text-[15px] leading-relaxed">CGDC演讲《AI在买量视频的应用与实践》。用AI编程开发Playable Engine 3.0（6114行/28模块），搭建11平台一键打包系统，视频转试玩大流程跑通。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============ ACHIEVEMENTS ============ -->
+    <section id="achievements" class="py-28 bg-gray-50/50">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs tracking-[0.2em] text-indigo-400 uppercase font-semibold mb-3">Key Results</p>
+                <h2 class="text-3xl sm:text-4xl font-bold">核心成果</h2>
+                <p class="text-gray-400 mt-3 text-sm">用数据和作品说话</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-7">
+                <!-- 爆款 -->
+                <div class="card reveal">
+                    <div class="bg-gradient-to-br from-amber-500 to-orange-500 p-7 text-white">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="badge bg-white/20 text-white text-[11px]"><i class="ri-fire-fill mr-1"></i>UE爆款素材</span>
+                            <span class="text-3xl font-black tracking-tight">$276万</span>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <div class="flex justify-between items-center p-4 bg-amber-50/80 rounded-2xl">
+                            <div>
+                                <div class="font-bold text-[15px]">TS3D1951_ZZ 卡车停车加油</div>
+                                <div class="text-xs text-gray-400 mt-0.5">Truck Star · 3D素材</div>
+                            </div>
+                            <div class="text-xl font-black text-amber-600">$197万</div>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-orange-50/80 rounded-2xl">
+                            <div>
+                                <div class="font-bold text-[15px]">TS3D2004_ZZ 悬崖路流氓车</div>
+                                <div class="text-xs text-gray-400 mt-0.5">Truck Star · 3D素材</div>
+                            </div>
+                            <div class="text-xl font-black text-orange-600">$79万</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 引擎 -->
+                <div class="card reveal reveal-delay-1">
+                    <div class="bg-gradient-to-br from-indigo-600 to-violet-600 p-7 text-white">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="badge bg-white/20 text-white text-[11px]"><i class="ri-gamepad-fill mr-1"></i>自研游戏引擎</span>
+                            <span class="badge bg-white/20 text-white text-[11px]">AI编程</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-[15px] leading-relaxed mb-5">用AI编程独立开发了一套完整的Playable广告游戏引擎，从引擎选型到架构设计到Demo产出，全流程跑通。</p>
+                        <div class="grid grid-cols-2 gap-3 mb-5">
+                            <div class="text-center p-4 bg-indigo-50/80 rounded-2xl">
+                                <div class="text-xl font-black text-indigo-600">Engine 3.0</div>
+                                <div class="text-[11px] text-gray-400 mt-1">PixiJS v8 + Matter.js</div>
+                            </div>
+                            <div class="text-center p-4 bg-violet-50/80 rounded-2xl">
+                                <div class="text-xl font-black text-violet-600">→ Phaser</div>
+                                <div class="text-[11px] text-gray-400 mt-1">最终转向更成熟的引擎</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400">渲染 · 物理/流体/软体 · 粒子 · 动画 · 布局 · 音频 · 诊断 — 28模块 · 12+Demo</p>
+                    </div>
+                </div>
+
+                <!-- LQZ & TOP -->
+                <div class="card reveal">
+                    <div class="bg-gradient-to-br from-cyan-500 to-blue-500 p-7 text-white">
+                        <span class="badge bg-white/20 text-white text-[11px]"><i class="ri-video-fill mr-1"></i>AI视频制作</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <div class="p-4 bg-blue-50/80 rounded-2xl">
+                            <div class="font-bold text-[15px]">LQZ项目</div>
+                            <div class="text-gray-500 text-sm mt-1">首测中产出AI素材，为首测数据做了贡献</div>
+                        </div>
+                        <div class="p-4 bg-cyan-50/80 rounded-2xl">
+                            <div class="font-bold text-[15px]">TOP项目</div>
+                            <div class="text-gray-500 text-sm mt-1">AI测试素材，据说数据不错</div>
+                        </div>
+                        <p class="text-xs text-gray-400 pt-1">转型AI视频方向后的早期探索与验证，积累了角色一致性等技术方案经验。</p>
+                    </div>
+                </div>
+
+                <!-- 视频转试玩 -->
+                <div class="card reveal reveal-delay-1">
+                    <div class="bg-gradient-to-br from-emerald-500 to-teal-500 p-7 text-white">
+                        <span class="badge bg-white/20 text-white text-[11px]"><i class="ri-rocket-2-fill mr-1"></i>视频转试玩</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-500 text-[15px] leading-relaxed mb-5">用自然语言描述需求，AI直接生成可投放的试玩广告。视频转试玩的大流程已跑通。</p>
+                        <div class="bg-emerald-50/80 rounded-2xl p-5 border border-emerald-100">
+                            <div class="font-bold text-emerald-700 text-sm mb-3">覆盖11个广告平台一键打包</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Meta</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Google</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Unity</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">AppLovin</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Mintegral</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">TikTok</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">IronSource</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Liftoff</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Moloco</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Snapchat</span>
+                                <span class="text-[11px] bg-white px-2.5 py-1 rounded-lg border border-emerald-100 text-gray-600">Generic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============ 15 SYSTEMS ============ -->
+    <section id="systems" class="py-28 bg-white">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs tracking-[0.2em] text-indigo-400 uppercase font-semibold mb-3">Systems & Tools</p>
+                <h2 class="text-3xl sm:text-4xl font-bold">搭建的 <span class="gradient-text">15 个系统/工具</span></h2>
+                <p class="text-gray-400 mt-3 text-sm">利用公司API资源，搭建了一系列AI驱动的系统与工具</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="sys-card reveal" style="--bar-color:#6366f1">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-indigo-500"><i class="ri-gamepad-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">Playable Engine 3.0</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">自研游戏引擎，28模块，含多平台构建+广告适配+响应式布局，AI-First架构</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#a855f7">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-purple-500"><i class="ri-sparkling-2-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">创意模式</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">多AI模型协同创意生成引擎，狂想→碰撞→筛选三阶段流程，产出买量广告创意方案</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#f59e0b">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-amber-500"><i class="ri-search-eye-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">创意搜集系统</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">AI驱动竞品分析，自动搜索→评分→生成视频脚本→同步Notion</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#f43f5e">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-rose-500"><i class="ri-movie-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">短视频创意生成器</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">搜索→AI脚本→图片生成→四宫格合成→Notion同步</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#3b82f6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-blue-500"><i class="ri-download-cloud-2-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">批量视频下载工具</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">Win/Mac桌面应用+Cocos插件，支持万级视频批量下载</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#10b981">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-emerald-500"><i class="ri-brain-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">第二大脑系统</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">Obsidian + Notion镜像，19个知识分类，43+文件增量同步</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#14b8a6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-teal-500"><i class="ri-book-open-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">AI人生日志系统</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">每日凌晨自动扫描19频道，AI生成结构化日志→Obsidian+Notion</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#06b6d4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-cyan-500"><i class="ri-lightbulb-flash-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">知识笔记自动化</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">自动提炼频道讨论为系统化知识笔记，核心观点→论据→思考</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#8b5cf6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-violet-500"><i class="ri-robot-2-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">OpenClaw AI助手</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">多频道AI助手，8+个Cron任务，6个AI模型，语音交互</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#64748b">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-slate-500"><i class="ri-tools-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">UE工具箱</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">一键创建UE工程模板、一键替换材质</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#475569">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-gray-600"><i class="ri-git-branch-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">SVN工程管理</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">资产规范化管理与版本控制</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#ea580c">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-orange-600"><i class="ri-film-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">AE批量落版脚本</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">解决重复性劳动</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#dc2626">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-red-600"><i class="ri-flow-chart"></i></div>
+                        <h4 class="font-bold text-[15px]">AI创意策划工作流</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">基于n8n自动化，竞品数据抓取、TikTok热点采集</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#0284c7">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-sky-600"><i class="ri-file-copy-2-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">视频复刻工具</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">分析竞品视频并复刻，针对简单视频可完成自动化复刻</p>
+                </div>
+
+                <div class="sys-card reveal" style="--bar-color:#65a30d">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="sys-icon bg-lime-600"><i class="ri-scissors-2-fill"></i></div>
+                        <h4 class="font-bold text-[15px]">Playable素材提取工具</h4>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">解析竞品Playable HTML，提取图片、音频、3D模型等资产，已实际应用于竞品试玩分析</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============ REFLECTION ============ -->
+    <section id="reflection" class="py-28 bg-gray-50/50">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8">
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs tracking-[0.2em] text-indigo-400 uppercase font-semibold mb-3">Reflection</p>
+                <h2 class="text-3xl sm:text-4xl font-bold">坦诚反思</h2>
+                <p class="text-gray-400 mt-3 text-sm">做得好的地方要讲，做得不够的地方也要说</p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="card p-8 reveal">
+                    <div class="flex items-start gap-5">
+                        <div class="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="ri-error-warning-fill text-amber-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">工具开发"有头无尾"</h3>
+                            <p class="text-gray-500 text-[15px] leading-relaxed mb-5">开发了好几个工具，每个都出了第一版，然后就没有然后了。其实每个工具如果持续迭代，都能变得更好。一方面是工作方向一直在变，精力被分散；另一方面也确实缺少"把一个东西做到极致"的耐心。</p>
+                            <div class="bg-indigo-50/80 rounded-2xl p-5 border border-indigo-100">
+                                <p class="text-gray-600 text-sm leading-relaxed"><span class="font-bold text-indigo-600">更深的思考：</span>之前的工具是面向人设计的，但很多人也不怎么用。未来工具开发的方向可能是<strong>面向AI</strong>——让AI来调用和组合，而不是依赖人去学习和使用。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-8 reveal reveal-delay-1">
+                    <div class="flex items-start gap-5">
+                        <div class="w-12 h-12 bg-rose-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="ri-time-fill text-rose-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">节奏把控</h3>
+                            <p class="text-gray-500 text-[15px] leading-relaxed">同时推进的事情比较多，有时候节奏容易散。接下来要更好地管理优先级，集中精力打透一个方向。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEELINGS ============ -->
+    <section id="feelings" class="py-28 relative overflow-hidden" style="background: radial-gradient(ellipse at 30% 50%, #1e1b4b, transparent 60%), radial-gradient(ellipse at 70% 80%, #312e81, transparent 50%), #0f0d1a;">
+        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.1) 50%, transparent 50%), radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.08) 50%, transparent 50%);"></div>
+
+        <div class="max-w-3xl mx-auto px-5 sm:px-8 relative z-10">
+            <div class="text-center reveal">
+                <p class="text-6xl text-indigo-300/10 font-serif mb-0">"</p>
+
+                <p class="text-2xl sm:text-3xl font-light leading-relaxed text-white mb-10 -mt-6">
+                    做AI这件事，是真的<span class="font-bold text-amber-400">热爱驱动</span>。
+                </p>
+
+                <div class="text-[15px] text-indigo-200/70 leading-[1.9] space-y-5 text-left">
+                    <p>有新的工具、新的技术出来，我总是第一时间去体验、去探索。不是因为谁要求我这么做，是真的感兴趣。</p>
+
+                    <p>从最早AI画出来的东西只能当表情包用，到现在可以达到影视级别；AI写的代码从满屏报错，到现在一句话做一个APP——我完整地经历了这个过程，也跟着成长了很多。</p>
+
+                    <div class="my-8 p-7 rounded-3xl" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px);">
+                        <p class="text-white/90 leading-[1.9]">
+                            <i class="ri-heart-fill text-pink-400 mr-1"></i>
+                            很庆幸能来到这个公司。公司提供的API资源，让我能用到这个地球上最先进的AI。没有这些支持，我搭建的这些系统都不可能实现。公司给了资源，我用这些资源走出了一条全新的路。
+                        </p>
+                    </div>
+
+                    <p>这一年跟AI高强度对话下来，最大的收获不是技能，是<span class="text-white font-semibold">判断力</span>。我清楚了AI的能力边界在哪，知道什么能做到、什么还做不到。脑子里的想法，基本上都能实现出来——AI几乎没有让我失望过，而且还在变得越来越强。</p>
+
+                    <p>我隐约看到了未来工作方式的转变：<span class="text-white/90">技术不再是瓶颈，人只需要下达意图，AI来执行。</span>现在摆在面前的不是"能不能做"，而是"一万个方向，选哪个"。这种认知上的变化，可能是这一年最大的收获。</p>
+
+                    <p class="text-xl text-white font-semibold text-center pt-2">
+                        用AI编程开发出了游戏引擎和十几个生产系统，<br>
+                        <span class="gradient-text text-2xl">这在一两年前完全不可能。</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 2026 ============ -->
+    <section class="py-28 bg-white">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8">
+            <div class="text-center mb-16 reveal">
+                <p class="text-xs tracking-[0.2em] text-indigo-400 uppercase font-semibold mb-3">Looking Ahead</p>
+                <h2 class="text-3xl sm:text-4xl font-bold">2026 展望</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-5">
+                <div class="rounded-2xl p-7 bg-gradient-to-br from-indigo-50/80 to-violet-50/80 border border-indigo-100/50 reveal">
+                    <i class="ri-rocket-2-fill text-indigo-500 text-2xl mb-4 block"></i>
+                    <h4 class="font-bold mb-2">纯AI制作Playable走深走透</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">形成可复制的生产流程，真正落地到业务</p>
+                </div>
+                <div class="rounded-2xl p-7 bg-gradient-to-br from-pink-50/80 to-rose-50/80 border border-pink-100/50 reveal reveal-delay-1">
+                    <i class="ri-robot-2-fill text-pink-500 text-2xl mb-4 block"></i>
+                    <h4 class="font-bold mb-2">工具面向AI而非面向人</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Agent Skills化，让AI来调用和组合工具</p>
+                </div>
+                <div class="rounded-2xl p-7 bg-gradient-to-br from-amber-50/80 to-yellow-50/80 border border-amber-100/50 reveal">
+                    <i class="ri-compass-discover-fill text-amber-500 text-2xl mb-4 block"></i>
+                    <h4 class="font-bold mb-2">保持技术前沿敏感度</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">继续做第一个吃螃蟹的人</p>
+                </div>
+                <div class="rounded-2xl p-7 bg-gradient-to-br from-emerald-50/80 to-teal-50/80 border border-emerald-100/50 reveal reveal-delay-1">
+                    <i class="ri-focus-3-fill text-emerald-500 text-2xl mb-4 block"></i>
+                    <h4 class="font-bold mb-2">做深做透，减少浅尝辄止</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">把一个东西做到极致</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 text-center" style="background: #0f0d1a;">
+        <p class="text-gray-500 text-sm">崔志鹏 · 2025年度个人复盘</p>
+        <p class="mt-2 text-gray-700 text-xs">本页面由AI协助生成 — 用AI做复盘网页，也是一种实践</p>
+    </footer>
+
+    <script>
+        // Reveal on scroll
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Smooth nav highlight
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+            navLinks.forEach(a => {
+                a.style.color = a.getAttribute('href') === '#' + current ? '#6366f1' : '';
+            });
+        });
+    </script>
+</body>
+</html>
